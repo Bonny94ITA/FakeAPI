@@ -1,0 +1,11 @@
+{
+  "users": [
+    { "id": 1, "name": "Alice", "email": "alice@example.com" }
+  ],
+  "transactions": [
+    { "id": 1, "user_id": 1, "amount": 100.0 }
+  ],
+  "campaigns": [
+    { "id": 1, "name": "Spring Sale", "budget": 10000.0 }
+  ]
+}
