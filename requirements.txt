@@ -1,3 +1,8 @@
 fastapi
 uvicorn
-pydantic
+pydantic[email]
+filelock
+pandas
+httpx
+pytest
+requests

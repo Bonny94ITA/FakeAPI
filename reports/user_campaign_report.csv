@@ -1,0 +1,14 @@
+user_id,name,campaign_id,name_campaign,amount,campaign_count
+2,Walter Montes,2,Be Campaign,131.16,1
+7,Susan Lucas,4,Specific Campaign,242.67,2
+7,Susan Lucas,5,Again Campaign,599.9,2
+8,Peter Salazar,4,Specific Campaign,221.78,2
+8,Peter Salazar,5,Again Campaign,765.29,2
+9,Ann Smith,2,Be Campaign,904.21,1
+10,James Dawson,2,Be Campaign,617.0,2
+10,James Dawson,5,Again Campaign,510.39,2
+16,Duane Roberts,2,Be Campaign,959.87,2
+16,Duane Roberts,5,Again Campaign,587.78,2
+17,Oscar Spencer,2,Be Campaign,354.35,2
+17,Oscar Spencer,5,Again Campaign,575.14,2
+19,Christina Patterson,5,Again Campaign,64.17,1
