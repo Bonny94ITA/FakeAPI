@@ -5,4 +5,5 @@ filelock
 pandas
 httpx
 pytest
+pytest-asyncio
 requests
