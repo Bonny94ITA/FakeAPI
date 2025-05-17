@@ -44,11 +44,11 @@ Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 Build the image:
 ```sh
-docker build -t fakeapi .
+docker build -t fake-api .
 ```
 Run the container:
 ```sh
-docker run -p 8000:8000 fakeapi
+docker run -p 8000:8000 fake-api
 ```
 To persist data outside the container:
 ```sh
@@ -64,6 +64,12 @@ docker run -p 8000:8000 -v $(pwd)/app/data:/app/app/data fakeapi
 - `GET /transactions` — List transactions
 - `GET /campaigns` — List campaigns
 - `POST /generate_reports` — Generate CSV reports
+
+---
+
+## Swagger UI
+
+- http://localhost:8000/docs#/
 
 ---
 
@@ -94,7 +100,6 @@ pytest tests/integration/test_concurrent_reports.py
 - File writes are concurrency-safe thanks to filelock.
 - Data validation is handled by Pydantic.
 - The codebase uses the Repository and Template Method patterns for clarity and extensibility.
-- You can safely edit or reset `app/data/data.json` for development.
 
 ---
 

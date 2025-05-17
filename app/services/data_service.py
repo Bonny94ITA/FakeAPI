@@ -1,10 +1,11 @@
 from pathlib import Path
-from typing import List, Dict
 from filelock import FileLock
+from typing import List, Dict
+import os
 import json
 
-DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "data.json"
-LOCK_FILE = DATA_FILE.with_suffix(".lock")
+DATA_FILE = Path(os.getenv("DATA_FILE", Path(__file__).resolve().parent.parent / "data" / "data.json"))
+LOCK_FILE = Path(os.getenv("LOCK_FILE", str(DATA_FILE.with_suffix(".lock"))))
 
 def read_data() -> Dict[str, List[Dict]]:
     with open(DATA_FILE, "r") as f:

@@ -1,9 +1,11 @@
 # Dockerfile
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    DATA_FILE=/app/app/data/data.json \
+    LOCK_FILE=/app/app/data/data.lock
 
 # Set working directory
 WORKDIR /app

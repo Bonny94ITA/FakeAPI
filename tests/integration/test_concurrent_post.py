@@ -1,25 +1,26 @@
+from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import pytest
 import requests
 import uuid
 import shutil
-import os
 
-DATA_FILE = "app/data/data.json"
-TEST_DATA_FILE = "app/data/data_test.json"
+DATA_FILE = Path("app") / "data" / "data.json"
+TEST_DATA_FILE = Path("app") / "data" / "data_test.json"
 
 @pytest.fixture(autouse=True)
 def isolate_data_file():
     # Backup original file
-    if os.path.exists(DATA_FILE):
-        shutil.copy(DATA_FILE, DATA_FILE + ".bak")
+    if DATA_FILE.exists():
+        shutil.copy(DATA_FILE, DATA_FILE.with_suffix(".json.bak"))
     # Replace with test data
-    if os.path.exists(TEST_DATA_FILE):
+    if TEST_DATA_FILE.exists():
         shutil.copy(TEST_DATA_FILE, DATA_FILE)
     yield
     # Restore original file after test
-    if os.path.exists(DATA_FILE + ".bak"):
-        shutil.move(DATA_FILE + ".bak", DATA_FILE)
+    bak_file = DATA_FILE.with_suffix(".json.bak")
+    if bak_file.exists():
+        shutil.move(bak_file, DATA_FILE)
 
 def post_user(n):
     unique_email = f"user{n}_{uuid.uuid4().hex}@example.com"

@@ -1,22 +1,24 @@
-import pandas as pd
-import httpx
+from pathlib import Path
 from filelock import FileLock
-import os
-import logging
 from fastapi import HTTPException
 from .report_pipeline import ReportPipeline
+import pandas as pd
+import os
+import httpx
+import logging
+
 
 logger = logging.getLogger(__name__)
 
 class UserCampaignReportPipeline(ReportPipeline):
-    API_URL = "http://localhost:8000"
+    API_URL = os.getenv("API_URL", "http://localhost:8000")
+    REPORTS_DIR = Path(os.getenv("REPORTS_DIR", "reports"))
 
     async def prepare(self):
-        # Ensure the 'reports' directory exists
         try:
-            os.makedirs("reports", exist_ok=True)
+            self.REPORTS_DIR.mkdir(parents=True, exist_ok=True)
         except Exception as e:
-            logger.error(f"Failed to create 'reports' directory: {e}")
+            logger.error(f"Failed to create '{self.REPORTS_DIR}' directory: {e}")
             raise HTTPException(status_code=500, detail="Failed to create reports directory.")
 
     async def fetch_data(self):
@@ -89,12 +91,12 @@ class UserCampaignReportPipeline(ReportPipeline):
     def save_reports(self, aggregated):
         try:
             user_campaign, campaign_revenue = aggregated
-            user_campaign_path = "reports/user_campaign_report.csv"
-            campaign_revenue_path = "reports/campaign_revenue_report.csv"
+            user_campaign_path = self.REPORTS_DIR / "user_campaign_report.csv"
+            campaign_revenue_path = self.REPORTS_DIR / "campaign_revenue_report.csv"
             
-            with FileLock(user_campaign_path + ".lock"):
+            with FileLock(str(user_campaign_path) + ".lock"):
                 user_campaign.to_csv(user_campaign_path, index=False)
-            with FileLock(campaign_revenue_path + ".lock"):
+            with FileLock(str(campaign_revenue_path) + ".lock"):
                 campaign_revenue.to_csv(campaign_revenue_path, index=False)
             logger.info("CSV reports generated successfully.")
         except Exception as e:

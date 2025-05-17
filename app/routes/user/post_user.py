@@ -14,12 +14,11 @@ def create_user(user: UserCreate):
     try:
         new_user = user_repository.add_user(user.model_dump())
     except Exception as e:
-        logger.error(f"Error adding user: {e}")
+        logger.error(f"Error adding user: {getattr(e, 'details', str(e))}", exc_info=True)
         if "Email" in str(e):
             raise HTTPException(status_code=400, detail="Email already exists")
         else:
             raise HTTPException(status_code=500, detail="Error saving user")
-
     logger.info(f"User added successfully: {new_user}")
     return {"message": "User added successfully", "user": new_user}
 
