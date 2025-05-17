@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from app.schemas.report_response import ReportResponse
 from app.services.user_campaign_report_pipeline import UserCampaignReportPipeline
 import traceback
 import logging
@@ -8,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 gen_repo = APIRouter()
 
-@gen_repo.post("/generate_reports")
+@gen_repo.post("/generate_reports", response_model=ReportResponse)
 async def generate_reports():
     logger.info("Starting report generation pipeline.")
     try:

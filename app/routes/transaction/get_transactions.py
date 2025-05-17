@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from typing import List
-from app.models.transaction import Transaction
+from app.schemas.transaction import Transaction
 from app.repositories.transaction_repository import TransactionRepository
 import logging
 

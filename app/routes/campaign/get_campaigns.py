@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from typing import List
-from app.models.campaign import Campaign
+from app.schemas.campaign import Campaign
 from app.repositories.campaign_repository import CampaignRepository
 import logging
 

@@ -26,8 +26,8 @@ def add_user(user_partial: Dict) -> Dict:
             data = json.load(f)
 
         users = data.get("users", [])
-
         email = user_partial.get("email")
+        
         if _is_duplicate_email(email, users):
             raise ValueError("Email already exists")
 
