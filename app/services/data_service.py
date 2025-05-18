@@ -7,6 +7,9 @@ import json
 DATA_FILE = Path(os.getenv("DATA_FILE", Path(__file__).resolve().parent.parent / "data" / "data.json"))
 LOCK_FILE = Path(os.getenv("LOCK_FILE", str(DATA_FILE.with_suffix(".lock"))))
 
+class DuplicateEmailException(Exception):
+    pass
+
 def read_data() -> Dict[str, List[Dict]]:
     with open(DATA_FILE, "r") as f:
         return json.load(f)
@@ -29,7 +32,7 @@ def add_user(user_partial: Dict) -> Dict:
         email = user_partial.get("email")
         
         if _is_duplicate_email(email, users):
-            raise ValueError("Email already exists")
+            raise DuplicateEmailException("Email already exists")
 
         last_id = max((u["id"] for u in users), default=0)
         new_user = {"id": last_id + 1, **user_partial}

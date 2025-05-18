@@ -1,7 +1,7 @@
 from pathlib import Path
 from filelock import FileLock
 from fastapi import HTTPException
-from .report_pipeline import ReportPipeline
+from .template.report_pipeline import ReportPipeline
 import pandas as pd
 import os
 import httpx

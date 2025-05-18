@@ -7,9 +7,9 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-gen_repo = APIRouter()
+post_gen_repo = APIRouter()
 
-@gen_repo.post("/generate_reports", response_model=ReportResponse)
+@post_gen_repo.post("/generate_reports", response_model=ReportResponse)
 async def generate_reports():
     logger.info("Starting report generation pipeline.")
     try:

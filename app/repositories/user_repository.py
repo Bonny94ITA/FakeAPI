@@ -6,3 +6,6 @@ class UserRepository:
 
     def add_user(self, user_data):
         return add_user(user_data)
+
+def get_user_repository():
+    return UserRepository()

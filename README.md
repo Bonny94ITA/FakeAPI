@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ```sh
 uvicorn app.main:app --reload
 ```
-Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+Swagger UI Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 ---
 
@@ -67,12 +67,6 @@ docker run -p 8000:8000 -v $(pwd)/app/data:/app/app/data fakeapi
 
 ---
 
-## Swagger UI
-
-- http://localhost:8000/docs#/
-
----
-
 ## Reports
 
 After calling `/generate_reports` you’ll find:
@@ -100,6 +94,7 @@ pytest tests/integration/test_concurrent_reports.py
 - File writes are concurrency-safe thanks to filelock.
 - Data validation is handled by Pydantic.
 - The codebase uses the Repository and Template Method patterns for clarity and extensibility.
+- **Note:** The `email` field for users accepts `null` values, but if an email is provided and it is not valid, the API will return a validation error.
 
 ---
 
